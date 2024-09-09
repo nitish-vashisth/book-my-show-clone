@@ -14,7 +14,6 @@ public class BmsController {
 
     @GetMapping("/city")
     public List<City>  GetListOfCities() {
-        System.out.println("Getting cities");
         RequestManager requestManager = new RequestManager();
         return requestManager.getCities();
     }
