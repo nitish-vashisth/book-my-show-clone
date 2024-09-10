@@ -19,39 +19,55 @@ public class RequestManager {
 
     public List<City> getCities() {
 
-        try {
-            System.out.println(" Fetching from DB");
-            List<City> cc  =  cityRepository.findAll();
-            for(City x : cc)
-                System.out.println("ID " + x.getId() + " Name " + x.getName());
-        } catch (Exception e) {
-            System.out.println("Exception occured " + e);
-        }
 
         List<City> cityList = new ArrayList<>();
 
-        BmsData bmsData = new BmsData();
-
-        HashMap<String, Integer> map = bmsData.getCities();
-
-        for(Map.Entry<String, Integer> city  :  map.entrySet()) {
-            cityList.add(new City(city.getValue(), city.getKey()));
+        try {
+            System.out.println(" Fetching from DB");
+            cityList  =  cityRepository.findAll();
+        } catch (Exception e) {
+            System.out.println("Exception occured " + e);
         }
 
         return  cityList;
     }
 
-    public List<City> addCity(String cityName) {
-        BmsData bmsData = new BmsData();
-        HashMap<String, Integer> map  =  bmsData.addCity(cityName);
+    public City addCity(String cityName) {
 
-        List<City> cityList = new ArrayList<>();
+        City city = new City(cityName.trim());
 
-        for(Map.Entry<String, Integer> city  :  map.entrySet()) {
-            cityList.add(new City(city.getValue(), city.getKey()));
+        try {
+            System.out.println(" Fetching from DB");
+            return cityRepository.save(city);
+        } catch (Exception e) {
+            System.out.println("Exception occured while adding record " + e);
         }
 
-        return  cityList;
+        return  new City();
+    }
+
+    public City updateCity(String cityName) {
+
+        try {
+            System.out.println(" Fetching from DB");
+            cityRepository.updateCityName(1, cityName);
+        } catch (Exception e) {
+            System.out.println("Exception occured while adding record " + e);
+        }
+
+        return  new City();
+    }
+
+    public City deleteCity(Integer id) {
+
+        try {
+            System.out.println(" Deleting from DB");
+            cityRepository.deleteCity(id);
+        } catch (Exception e) {
+            System.out.println("Exception occured while adding record " + e);
+        }
+
+        return  new City();
     }
 
 }

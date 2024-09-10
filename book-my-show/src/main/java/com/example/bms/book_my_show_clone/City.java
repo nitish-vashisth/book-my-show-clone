@@ -1,20 +1,21 @@
 package com.example.bms.book_my_show_clone;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class City {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     int id;
 
     String name;
 
     public City() {
+    }
+
+    public City(String name) {
+        this.name = name;
     }
 
     public City(int id, String name) {
